@@ -6,9 +6,12 @@ require("dotenv").config();
 
 const app = express();
 
+// setup CORS middleware
+app.use(cors(require("./config/corsOptions")));
+
 // global route handler
 app.use((req, res, next) => {
-  res.send("<h1>Welcome to Node</h1>");
+  res.json({ message: "success" });
 });
 
 // specify the PORT
