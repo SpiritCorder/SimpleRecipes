@@ -4,7 +4,7 @@ const Brand = () => {
   return (
     <Link
       to="/"
-      className="bg-red-900 text-white px-5 py-2 rounded-md font-brand flex-row-center"
+      className="w-max bg-red-900 text-white px-5 py-2 rounded-md font-brand flex-row-center"
     >
       <span>SimpleRecipes</span>
     </Link>
