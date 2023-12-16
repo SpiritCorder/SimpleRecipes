@@ -13,6 +13,18 @@ const app = express();
 // setup CORS middleware
 app.use(cors(require("./config/corsOptions")));
 
+// JSON body parser middleware
+app.use(express.json());
+
+// API Routes
+app.use("/auth", require("./routes/authRoutes"));
+
+// 404 error handling middlewares
+app.use(require("./middlewares/errorMiddleware").notFound);
+
+// global error handling middleware
+app.use(require("./middlewares/errorMiddleware").error);
+
 // specify the PORT
 const PORT = process.env.NODE_ENV === "development" ? 5000 : process.env.PORT;
 
