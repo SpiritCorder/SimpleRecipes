@@ -4,10 +4,12 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
+import Navbar from "./components/layout/Navbar";
 
 const App = () => {
   return (
     <>
+      <Navbar />
       <Routes>
         {/* Register Page */}
         <Route path="/register" element={<RegisterPage />} />
