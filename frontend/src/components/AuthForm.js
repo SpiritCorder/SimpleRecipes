@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import Brand from "./Brand";
 
 import {
   validateUsername,
   validatePassword,
 } from "../validators/authValidators";
+
+import { loginSuccess } from "../redux/slices/authSlice";
 
 import { axiosPublic } from "../config/axios";
 
@@ -17,6 +20,9 @@ const AuthForm = ({ title, type }) => {
     password: "",
   });
   const [processing, setProcessing] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const existingAccountMsg =
     type === "login" ? "Don't have an account? " : "Already have an account? ";
@@ -49,10 +55,11 @@ const AuthForm = ({ title, type }) => {
         JSON.stringify({ username, password })
       );
       // update redux global auth state
-
+      dispatch(loginSuccess(response.data.data));
       setProcessing(false);
 
       // redirect user to home page
+      navigate("/");
     } catch (err) {
       const errMsg = err.response.data.message;
       setError({ username: errMsg, password: errMsg });

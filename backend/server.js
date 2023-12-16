@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 // initialize .dotenv
 require("dotenv").config();
@@ -15,6 +16,9 @@ app.use(cors(require("./config/corsOptions")));
 
 // JSON body parser middleware
 app.use(express.json());
+
+// Cookie-Parser middleware
+app.use(cookieParser());
 
 // API Routes
 app.use("/api/auth", require("./routes/authRoutes"));
