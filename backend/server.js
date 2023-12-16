@@ -17,7 +17,7 @@ app.use(cors(require("./config/corsOptions")));
 app.use(express.json());
 
 // API Routes
-app.use("/auth", require("./routes/authRoutes"));
+app.use("/api/auth", require("./routes/authRoutes"));
 
 // 404 error handling middlewares
 app.use(require("./middlewares/errorMiddleware").notFound);
