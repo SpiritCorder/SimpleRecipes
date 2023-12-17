@@ -19,6 +19,12 @@ const RecipeList = () => {
     fetchAllRecipes();
   }, [axiosPrivate]);
 
+  const updateListAfterDelete = (id) => {
+    setRecipes((prev) =>
+      prev.filter((item) => item._id.toString() !== id.toString())
+    );
+  };
+
   return (
     <div className="flex flex-wrap items-center justify-start gap-10">
       {recipes.map((recipe) => (
@@ -30,6 +36,7 @@ const RecipeList = () => {
           id={recipe._id}
           createdAt={recipe.createdAt}
           owner={recipe.owner}
+          updateListAfterDelete={updateListAfterDelete}
         />
       ))}
     </div>

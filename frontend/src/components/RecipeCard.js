@@ -1,8 +1,13 @@
+import { createPortal } from "react-dom";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import { selectAuthUser } from "../redux/slices/authSlice";
 import { MdChevronRight, MdDeleteForever, MdEdit } from "react-icons/md";
+
+import Overlay from "./Overlay";
+import ConfirmationMessage from "./ConfirmationMessage";
 
 const RecipeCard = ({
   name,
@@ -11,12 +16,38 @@ const RecipeCard = ({
   id,
   createdAt,
   owner,
+  updateListAfterDelete,
 }) => {
+  const [modelOpen, setModelOpen] = useState(false);
+
   const authUser = useSelector(selectAuthUser);
   const navigate = useNavigate();
 
+  const closeModel = (isConfirmed) => {
+    setModelOpen(false);
+
+    if (isConfirmed) {
+      // update the state of RecipeList
+      updateListAfterDelete(id);
+    }
+  };
+
   return (
     <div className="relative min-w-[370px] w-[370px] rounded overflow-hidden shadow-lg">
+      {modelOpen &&
+        createPortal(<Overlay />, document.getElementById("overlay-container"))}
+      {modelOpen &&
+        createPortal(
+          <ConfirmationMessage
+            prompt={`Are you sure that you want to delete recipe `}
+            title="Delete Confirmation"
+            id={id}
+            name={name}
+            handleClose={closeModel}
+          />,
+          document.getElementById("content-container")
+        )}
+
       {/* Edit & Delete Buttons */}
       {owner.toString() === authUser._id.toString() && (
         <div className="absolute top-0 right-0 flex-row-center gap-2 p-2">
@@ -26,7 +57,10 @@ const RecipeCard = ({
           >
             <MdEdit fontSize={22} />
           </button>
-          <button className="flex-row-center w-8 h-8 rounded-full hover:bg-gray-200">
+          <button
+            className="flex-row-center w-8 h-8 rounded-full hover:bg-gray-200"
+            onClick={() => setModelOpen(true)}
+          >
             <MdDeleteForever fontSize={22} className="text-red-500" />
           </button>
         </div>

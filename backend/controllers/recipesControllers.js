@@ -81,12 +81,10 @@ const updateRecipe = async (req, res, next) => {
 
     // check whether a recipe exists with the given recipeId
     if (!recipe)
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: `Recipe not found with the id ${recipeId}`,
-        });
+      return res.status(404).json({
+        success: false,
+        message: `Recipe not found with the id ${recipeId}`,
+      });
 
     // check whether owner is right
     if (recipe.owner.toString() !== req.user._id.toString())
@@ -132,12 +130,10 @@ const getSingleRecipe = async (req, res, next) => {
     const recipe = await RecipeModel.findById(recipeId).lean();
 
     if (!recipe) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: `Recipe not found with the id ${recipeId}`,
-        });
+      return res.status(404).json({
+        success: false,
+        message: `Recipe not found with the id ${recipeId}`,
+      });
     }
 
     // check whether the recipe was created by the auth user
@@ -153,9 +149,41 @@ const getSingleRecipe = async (req, res, next) => {
   }
 };
 
+// @desc - Delete a recipe
+// @method - DELETE '/api/recipes/:recipeId'
+// @access - Private
+
+const deleteRecipe = async (req, res, next) => {
+  const { recipeId } = req.params;
+
+  try {
+    const recipe = await RecipeModel.findById(recipeId);
+
+    if (!recipe)
+      return res.status(404).json({
+        success: false,
+        message: `Recipe not found with the id ${recipeId}`,
+      });
+
+    // check whether owner is auth user or not
+    if (recipe.owner.toString() !== req.user._id.toString())
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized access to a resource" });
+
+    // delete the recipe
+    await RecipeModel.findByIdAndDelete(recipeId);
+
+    res.status(200).json({ success: true, message: "Recipe Deleted" });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createRecipe,
   updateRecipe,
   getRecipes,
   getSingleRecipe,
+  deleteRecipe,
 };
