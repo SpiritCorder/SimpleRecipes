@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess, logoutAuthUserThunk } from "../redux/slices/authSlice";
 import { axiosPublic } from "../config/axios";
@@ -5,7 +6,7 @@ import { axiosPublic } from "../config/axios";
 const useRefreshToken = () => {
   const dispatch = useDispatch();
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     try {
       const response = await axiosPublic.get("/auth/refresh");
       const { accessToken, user } = response.data.data;
@@ -14,9 +15,11 @@ const useRefreshToken = () => {
       return accessToken;
     } catch (err) {
       // refresh token failed to receive a new access token, so logout the user
-      dispatch(logoutAuthUserThunk());
+      if (err?.response?.status === 403) {
+        dispatch(logoutAuthUserThunk());
+      }
     }
-  };
+  }, [dispatch]);
 
   return refresh;
 };
