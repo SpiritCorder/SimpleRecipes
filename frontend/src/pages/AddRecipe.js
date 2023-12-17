@@ -1,10 +1,20 @@
 import { useState } from "react";
-
+import { useSearchParams } from "react-router-dom";
 import RecipeForm from "../components/RecipeForm";
 import IngredientList from "../components/IngredientList";
 
 const AddRecipePage = () => {
   const [ingredients, setIngredients] = useState([]);
+
+  const [searchParams] = useSearchParams();
+
+  const isEdit =
+    searchParams.get("edit") && searchParams.get("edit") === "true"
+      ? true
+      : false;
+  const recipeId = searchParams.get("recipeId")
+    ? searchParams.get("recipeId")
+    : null;
 
   const removeIngredient = (name) =>
     setIngredients((prev) =>
@@ -24,9 +34,17 @@ const AddRecipePage = () => {
 
   return (
     <div className="custom-container mt-[60px] py-10 flex flex-col items-center gap-10">
-      <h1 className="text-4xl font-extrabold">Add New Recipe</h1>
+      <h1 className="text-4xl font-extrabold">
+        {isEdit ? "Edit Recipe" : "Add New Recipe"}
+      </h1>
       {/* Recipe Add Form */}
-      <RecipeForm addIngredient={setIngredients} ingredients={ingredients} />
+      <RecipeForm
+        addIngredient={setIngredients}
+        ingredients={ingredients}
+        isEdit={isEdit}
+        recipeId={recipeId}
+      />
+      {/* Recipe Ingredients List */}
       {ingredients.length > 0 && (
         <>
           <hr className="bg-gray-100 w-full h-[1px]"></hr>

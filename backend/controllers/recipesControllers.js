@@ -51,7 +51,9 @@ const createRecipe = async (req, res, next) => {
 
 const getRecipes = async (req, res, next) => {
   try {
-    const recipes = await RecipeModel.find({ owner: req.user._id }).lean();
+    const recipes = await RecipeModel.find({ owner: req.user._id })
+      .sort({ createdAt: -1 })
+      .lean();
     res.status(200).json({ success: true, message: "success", data: recipes });
   } catch (err) {
     next(err);
