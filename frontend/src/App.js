@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // page components
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
@@ -11,6 +14,7 @@ import AuthRoute from "./components/utils/AuthRoute";
 const App = () => {
   return (
     <>
+      <ToastContainer position="top-center" />
       <Navbar />
       <Routes>
         {/* Add New Recipe Page */}
