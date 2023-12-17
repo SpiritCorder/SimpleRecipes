@@ -95,7 +95,6 @@ const RecipeForm = ({
     }
 
     // no errors, submit the request
-
     try {
       const data = { name, description, ingredients };
       if (isEdit) {
