@@ -33,7 +33,7 @@ const RecipeCard = ({
   };
 
   return (
-    <div className="relative min-w-[370px] w-[370px] rounded overflow-hidden shadow-lg">
+    <div className="relative min-w-[370px] w-[370px] min-h-[230px] h-[230px] rounded overflow-hidden shadow-lg">
       {modelOpen &&
         createPortal(<Overlay />, document.getElementById("overlay-container"))}
       {modelOpen &&
@@ -67,8 +67,12 @@ const RecipeCard = ({
       )}
 
       <div className="px-8 py-6">
-        <div className="font-bold text-xl mb-2">{name}</div>
-        <p className="text-gray-700 text-base">{description}</p>
+        <h1 className="font-bold text-xl mb-2">
+          {name.length > 22 ? `${name.slice(0, 20)}...` : name}
+        </h1>
+        <p className="text-gray-700 text-base custom-line-clamp">
+          {description}
+        </p>
         <p className="text-gray-400 text-sm mb-0 mt-3">
           Created at {new Date(createdAt).toDateString()}
         </p>

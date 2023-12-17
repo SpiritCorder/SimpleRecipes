@@ -19,3 +19,11 @@
     @apply flex items-center justify-between;
   }
 }
+
+/* custom css styles */
+.custom-line-clamp {
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

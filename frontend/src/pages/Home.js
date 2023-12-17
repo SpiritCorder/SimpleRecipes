@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectAuthInfo } from "../redux/slices/authSlice";
@@ -30,9 +29,7 @@ const HomePage = () => {
       <h1 className="text-3xl font-extrabold">My Recipes</h1>
       <hr className="my-5"></hr>
       {/* Recipes List */}
-      <Suspense fallback={<p>loading...</p>}>
-        <RecipeList />
-      </Suspense>
+      <RecipeList />
     </div>
   );
 };
