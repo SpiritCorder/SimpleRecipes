@@ -11,6 +11,7 @@ import Navbar from "./components/layout/Navbar";
 import AddRecipePage from "./pages/AddRecipe";
 import AuthRoute from "./components/utils/AuthRoute";
 import PersistAuth from "./components/utils/PersistAuth";
+import RecipeDetails from "./pages/RecipeDetails";
 
 const App = () => {
   return (
@@ -19,6 +20,10 @@ const App = () => {
         <ToastContainer position="top-center" />
         <Navbar />
         <Routes>
+          {/* Add New Recipe Page */}
+          <Route path="/recipes/:recipeId" element={<AuthRoute />}>
+            <Route index element={<RecipeDetails />} />
+          </Route>
           {/* Add New Recipe Page */}
           <Route path="/add-recipe" element={<AuthRoute />}>
             <Route index element={<AddRecipePage />} />

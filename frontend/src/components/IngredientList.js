@@ -3,8 +3,8 @@ import IngredientItem from "./IngredientItem";
 const IngredientList = ({
   ingredients,
   isEditable = false,
-  removeIngredient,
-  updateIngredient,
+  removeIngredient = null,
+  updateIngredient = null,
 }) => {
   return (
     <div className="w-2/3">
