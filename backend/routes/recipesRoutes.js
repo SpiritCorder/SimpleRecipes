@@ -6,12 +6,17 @@ const auth = require("../middlewares/authMiddleware");
 const {
   createRecipe,
   getSingleRecipe,
+  getRecipes,
 } = require("../controllers/recipesControllers");
 
 // apply the auth middleware globaly to all routes related to recipes
 router.use(auth);
 
-router.route("/").post(createRecipe); // create a new recipe
+router
+  .route("/")
+  .post(createRecipe) // create a new recipe
+  .get(getRecipes); // get auth user's recipes
+
 router
   .route("/:recipeId")
   // .put() // to update an existing recipe

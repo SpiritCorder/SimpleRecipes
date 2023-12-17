@@ -45,6 +45,19 @@ const createRecipe = async (req, res, next) => {
   }
 };
 
+// @desc - Retrive all recipes of the auth user
+// @method - GET '/api/recipes/'
+// @access - Private
+
+const getRecipes = async (req, res, next) => {
+  try {
+    const recipes = await RecipeModel.find({ owner: req.user._id }).lean();
+    res.status(200).json({ success: true, message: "success", data: recipes });
+  } catch (err) {
+    next(err);
+  }
+};
+
 // @desc - Retrive a single recipe
 // @method - GET '/api/recipes/:recipeId'
 // @access - Private
@@ -70,5 +83,6 @@ const getSingleRecipe = async (req, res, next) => {
 
 module.exports = {
   createRecipe,
+  getRecipes,
   getSingleRecipe,
 };
