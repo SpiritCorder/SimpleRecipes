@@ -22,6 +22,7 @@ app.use(cookieParser());
 
 // API Routes
 app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/recipes", require("./routes/recipesRoutes"));
 
 // 404 error handling middlewares
 app.use(require("./middlewares/errorMiddleware").notFound);

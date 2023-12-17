@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // @desc - Register a new user
-// @method - GET '/auth/register'
+// @method - GET '/api/auth/register'
 // @access - Public
 
 const register = async (req, res, next) => {
@@ -79,7 +79,7 @@ const register = async (req, res, next) => {
 };
 
 // @desc - Logged the user in by veryfying credentials
-// @method - GET '/auth/login'
+// @method - GET '/api/auth/login'
 // @access - Public
 
 const login = async (req, res, next) => {
@@ -152,7 +152,7 @@ const login = async (req, res, next) => {
 };
 
 // @desc - Renew the access token by verifying the refresh token
-// @method - GET '/auth/refresh'
+// @method - GET '/api/auth/refresh'
 // @access - Public
 
 const refresh = async (req, res, next) => {
@@ -198,7 +198,7 @@ const refresh = async (req, res, next) => {
 };
 
 // @desc - Remove the 'jwt' cookie that contained the refresh token from response headers
-// @method - GET '/auth/logout'
+// @method - GET '/api/auth/logout'
 // @access - Public
 
 const logout = (req, res, next) => {
