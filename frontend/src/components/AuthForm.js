@@ -135,7 +135,10 @@ const AuthForm = ({ title, type }) => {
           </div>
         </div>
         {/* Submit Button */}
-        <button className="bg-red-500 px-4 py-2 text-white rounded-md flex-row-center gap-2">
+        <button
+          className="bg-red-500 px-4 py-2 text-white rounded-md flex-row-center gap-2"
+          disabled={processing}
+        >
           {processing ? (
             <>
               <svg

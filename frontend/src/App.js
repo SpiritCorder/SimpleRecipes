@@ -5,12 +5,18 @@ import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import Navbar from "./components/layout/Navbar";
+import AddRecipePage from "./pages/AddRecipe";
+import AuthRoute from "./components/utils/AuthRoute";
 
 const App = () => {
   return (
     <>
       <Navbar />
       <Routes>
+        {/* Add New Recipe Page */}
+        <Route path="/add-recipe" element={<AuthRoute />}>
+          <Route index element={<AddRecipePage />} />
+        </Route>
         {/* Register Page */}
         <Route path="/register" element={<RegisterPage />} />
         {/* Login Page */}
